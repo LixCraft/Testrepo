@@ -1,0 +1,12 @@
+<h4>Selectionner un client</h4>
+<div>
+<mat-form-field appearance="fill">
+  <mat-label>Client</mat-label>
+  <mat-select (selectionChange)="changeCustomer($event.value)">
+    <mat-option *ngFor="let customer of customers" [value]="customer">
+      {{customer.firstName | uppercase}} {{customer.lastName | titlecase}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+</div>
+<button *ngIf="selectedCustomer" mat-button class="mat-primary" (click)="valider()">Valider</button>

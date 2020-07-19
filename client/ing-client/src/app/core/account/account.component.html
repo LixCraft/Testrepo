@@ -1,0 +1,59 @@
+<h5>Client : {{customer?.firstName | uppercase}} {{customer?.lastName | titlecase}}</h5>
+
+<h4>Selectionner un compte</h4>
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Compte</mat-label>
+    <mat-select (selectionChange)="changeAccount($event.value)" >
+      <mat-option *ngFor="let accountDto of accounts" [value]="accountDto">
+        {{accountDto.account.accountNumber}} - {{accountDto.account.typeLabel}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div *ngIf="selectedAccountDto">Solde du compte : {{getSum() | currency:'EUR':true}}</div>
+<div *ngIf="selectedAccountDto">
+  <h4>List des opérations</h4>
+  <mat-table [dataSource]="selectedAccountDto.operations" class="mat-elevation-z8">
+    <!-- Name Column -->
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.date | date}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> Libellé </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+    </ng-container>
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef> Catégorie </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.category}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <mat-header-cell *matHeaderCellDef> Montant </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.amount | currency:'EUR':true}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <br/>
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style" (change)="changeOperationTYpe($event.value)">
+    <mat-button-toggle value="deposit">Dépôt</mat-button-toggle>
+    <mat-button-toggle value="withdraw">Retrait</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+<div *ngIf="operationType">
+  <label for="description">Description</label>
+  <input id="description" type="text" [(ngModel)]="descriptionToSave">
+  <br/>
+  <label for="valueSaveOperation">Montant à <span *ngIf="operationType == this.operationTypeListe.deposit">déposer</span><span *ngIf="operationType == this.operationTypeListe.withdraw">retirer</span></label>
+  <input id="valueSaveOperation" type="number" [(ngModel)]="amountToSave"> €
+</div>
+<br/>
+<div>
+  <button *ngIf="operationType" mat-button class="mat-primary" (click)="saveOperation()">Valider le <span *ngIf="operationType == this.operationTypeListe.deposit">dépôt</span><span *ngIf="operationType == this.operationTypeListe.withdraw">retrait</span></button>
+</div>
