@@ -1,3 +1,44 @@
+# Bank Account Kata done by FLU
+## Environnement technique
+- Maven Project
+- IDE Work Environment : IntelliJ
+- Setting Configuration : JDK 1.8
+- Plugins to download : IntelliJ Lombok plugin
+- FrontEnd : Angular 7+/NodeJs v12.18.2+/Npm v6.14.5+
+- Backend : Java SpringFramework && JPA
+- Database : Postgre
+
+## Installation et Déploiement
+Importer le projet en Maven Project
+
+Configurer l'environnement de travail de l'IDE avec JDK 1.8
+
+Installation de l'application Angular 
+
+- Lancer la commande "npm install" depuis le chemin suivant :
+"..\ing-bank-account-kata\client\ing-client>"
+
+Installation de la base de données Posgtres
+
+- Créer une base de données en local puis lancer les requêtes sql du fichier "initBdd.sql"
+- Le paramétrage des accès à la base de données sont déclarés dans le fichier "application.properties"
+
+Lancement du serveur :
+- Lancer un maven run du fichier "App.java"
+
+Lancement de l'application Angular :
+- Lancer la commande "ng serve" depuis le chemin suivant :
+"..\ing-bank-account-kata\client\ing-client>"
+
+## Description de l'application Angular
+Lancer l'application avec l'une des 2 adresses suivantes :
+- http://localhost:4200
+- http://localhost:4200/customerSelection
+
+Sélectionner un client vous redirigera vers le détail du compte.
+
+L'affichage de l'historique des opérations est visible dès qu'un compte est sélectionné dans la liste déroulante.
+
 # Bank Account Kata (EN)
 _Une version [française est disponible](#bank-account-kata-fr)_
 > This exercice has some flexible implementation and a deadline.  
@@ -121,3 +162,4 @@ Elles n'ont pas de priorité entre elles, vous pouvez implémenter celles qui vo
 * Utiliser Gradle au lieu de Maven
 * Proposer un system de CI/CD pour le projet
 * Proposer des tests End to End à destination de votre livrable
+
